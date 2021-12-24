@@ -62,6 +62,15 @@ const App = () => {
     );
   }
 
+  if(hasClaimedNFT) {
+    return (
+      <div className="member-page">
+        <h1>👋 Member section</h1>
+        <p>Congratulations on being a valued member! 💕</p>
+      </div>
+    );
+  };
+
   const mintNFT = () => {
     setIsClaiming(true);
     bundleDropModule
@@ -91,11 +100,11 @@ const App = () => {
     </div>
   );
 
-  /* If the user has connected their wallet
+  //If the user has connected their wallet
   return (
     <div className="landing">
       <h1>👀 wallet connected!</h1>
-    </div>);*/
+    </div>);
 };
 
 export default App;
