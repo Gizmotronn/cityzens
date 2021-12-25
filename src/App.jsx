@@ -84,10 +84,7 @@ const App = () => {
     });
   }, [memberAddresses, memberTokenAmounts]);
 
-  // Another useEffect!
   useEffect(() => {
-    // We pass the signer to the sdk, which enables us to interact with
-    // our deployed contract!
     sdk.setProviderOrSigner(signer);
   }, [signer]);
 
@@ -114,6 +111,17 @@ const App = () => {
       });
   }, [address]);
 
+  if (error && error.name === "UnsupportedChainIdError") {
+    return (
+      <div className="unsupported-network">
+        <h2>Please connect to Rinkeby</h2>
+        <p>
+          This dapp only works on Rinkeby test network
+        </p>
+      </div>
+    );
+  }
+
   // If the user hasn't connected their wallet, call connectWallet
   if (!address) {
     return (
@@ -126,49 +134,68 @@ const App = () => {
     );
   }
 
-  if(hasClaimedNFT) {
+  if (hasClaimedNFT) {
     return (
       <div className="member-page">
-        <h1>👋 Member section</h1>
-        <p>Congratulations on being a valued member! 💕</p>
+        <h1>🍪Cityzens Member Page</h1>
+        <p>Congratulations on being a member</p>
+        <div>
+          <div>
+            <h2>Member List</h2>
+            <table className="card">
+              <thead>
+                <tr>
+                  <th>Address</th>
+                  <th>Token Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {memberList.map((member) => {
+                  return (
+                    <tr key={member.address}>
+                      <td>{shortenAddress(member.address)}</td>
+                      <td>{member.tokenAmount}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     );
   };
-
-  const mintNFT = () => {
-    setIsClaiming(true);
-    bundleDropModule
-    .claim("0", 1)
-    .catch((err) => {
-      console.error("failed to claim", err);
-      setIsClaiming(false);
-    })
-    .finally(() => {
-      setIsClaiming(false); // Stops the loading state
-      setHasClaimedNFT(true);
-      console.log(
-        "🖇 Successfully minted! Check opensea: https://testnets.opensea.io/assets/${bundleDropModule.address}/0"
-      );
-    });
-  }
-
-  // Mint NFT screen/window component/area
+  
   return (
     <div className="mint-nft">
-    <button
-      disabled={isClaiming}
-      onClick={() => mintNFT()}
-    >
-      {isClaiming ? "Minting..." : "Mint NFT"}
-    </button>
+      <h1>Mint your free Cityzens Membership NFT</h1>
+      <button
+        disabled={isClaiming}
+        onClick={() => {
+          setIsClaiming(true);
+          // Call bundleDropModule.claim("0", 1) to mint nft to user's wallet.
+          bundleDropModule
+            .claim("0", 1)
+            .catch((err) => {
+              console.error("failed to claim", err);
+              setIsClaiming(false);
+            })
+            .finally(() => {
+              // Stop loading state.
+              setIsClaiming(false);
+              // Set claim state.
+              setHasClaimedNFT(true);
+              // Show user their fancy new NFT!
+              console.log(
+                `Successfully Minted! Check it our on OpenSea: https://testnets.opensea.io/assets/${bundleDropModule.address}/0`
+              );
+            });
+        }}
+      >
+        {isClaiming ? "Minting..." : "Mint your nft (FREE)"}
+      </button>
     </div>
   );
-
-  //If the user has connected their wallet
-  return (
-    <div className="landing">
-      <h1>👀 wallet connected!</h1>
-    </div>);
 };
 
 export default App;
