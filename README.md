@@ -45,7 +45,13 @@
   </p>
 </div>
 
+## Setting up
+### Environment variables
+Make sure you set up a `.env` file in your root directory and fill it with the following variables:
 
+* PRIVATE_KEY -> Your Metamask private KEY (not your secret phrase)
+* ALCHEMY_API_URL -> From alchemy.com
+* WALLET_ADDRESS -> Your Metamask/Eth wallet's address
 
 <!-- TABLE OF CONTENTS 
 <details>

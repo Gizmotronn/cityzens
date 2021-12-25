@@ -2,8 +2,8 @@ import sdk from "./1-initialize-sdk.js";
 
 // Grab app module address.
 const appModule = sdk.getAppModule(
-    "0x8f3ad85fB4E36fdf0F1ED14b27649C898D894D24",
-)
+    "0xB3883F5D971C54c1D7137F423c717b1b97F983f2",
+);
 
 (async () => {
     try {
