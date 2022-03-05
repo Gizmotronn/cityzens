@@ -53,6 +53,11 @@ Make sure you set up a `.env` file in your root directory and fill it with the f
 * ALCHEMY_API_URL -> From alchemy.com
 * WALLET_ADDRESS -> Your Metamask/Eth wallet's address
 
+
+**Python (3) Modules**
+* Brownie
+
+
 <!-- TABLE OF CONTENTS 
 <details>
   <summary>Table of Contents</summary>
