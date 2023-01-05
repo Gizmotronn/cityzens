@@ -9,6 +9,8 @@ requests = "*"
 matplotlib = "*"
 lightkurve = "*"
 thirdweb-sdk = "*"
+python-dotenv = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
